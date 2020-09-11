@@ -106,10 +106,14 @@ func (c *FirmataClient) Close() {
 
 // Sets the Pin mode (input, output, etc.) for the Arduino pin
 func (c *FirmataClient) SetPinMode(pin byte, mode PinMode) (err error) {
+	//This fucking shit code had me spending 8 hours trying to figure out why PWM pins didnt' work.
+	// NOTE TO ANYONE: THIS SHIT DOES NOT WORK THE WAY IT SHOULD
+	/*
 	if c.pinModes[pin][mode] == nil {
 		err = fmt.Errorf("Pin mode %v not supported by pin %v", mode, pin)
 		return
 	}
+	*/
 	cmd := []byte{byte(SetPinMode), (pin & 0x7F), byte(mode)}
 	err = c.sendCommand(cmd)
 	return
